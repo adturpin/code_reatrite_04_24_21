@@ -1,40 +1,35 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SupermarketReceipt
 {
     public class ShoppingCart
     {
-        private readonly List<ProductQuantity> _items = new List<ProductQuantity>();
-        private readonly Dictionary<Product, double> _productQuantities = new Dictionary<Product, double>();
+        private readonly Items _items;
 
+        private ShoppingCart(Items items) :this()
+        {
+            _items = items;
+        }
 
+        public ShoppingCart()
+        {
+            _items = new Items();
+        }
         public List<ProductQuantity> GetItems()
         {
-            return new List<ProductQuantity>(_items);
+            return new List<ProductQuantity>(_items.GetAll());
         }
 
-        public void AddItem(Product product)
+        public ShoppingCart AddItemQuantity(Product product, double quantity)
         {
-            AddItemQuantity(product, 1.0);
-        }
-
-
-        public void AddItemQuantity(Product product, double quantity)
-        {
-            _items.Add(new ProductQuantity(product, quantity));
-            if (_productQuantities.ContainsKey(product))
-            {
-                var newAmount = _productQuantities[product] + quantity;
-                _productQuantities[product] = newAmount;
-            }
-            else
-            {
-                _productQuantities.Add(product, quantity);
-            }
+            return new ShoppingCart(_items.Add(new ProductQuantity(product,quantity)));
         }
 
         public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, SupermarketCatalog catalog)
         {
+            var _productQuantities = ProductQuantities();
             foreach (var p in _productQuantities.Keys)
             {
                 var quantity = _productQuantities[p];
@@ -79,6 +74,15 @@ namespace SupermarketReceipt
                         receipt.AddDiscount(discount);
                 }
             }
+        }
+
+        private Dictionary<Product,double > ProductQuantities()
+        {
+            return  _items
+                .GetAll()
+                .GroupBy(l => l.Product)
+                .Select(cl => new KeyValuePair<Product, double>(cl.Key, cl.Sum(x => x.Quantity)))
+                .ToDictionary(x => x.Key, x => x.Value);
         }
     }
 }

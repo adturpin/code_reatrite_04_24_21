@@ -42,16 +42,16 @@ namespace SupermarketReceipt.Test
         {
             var cart = new ShoppingCart();
             if (applesQuantity1 != 0)
-                cart.AddItemQuantity(_apples, applesQuantity1);
+                cart = cart.AddItemQuantity(_apples, applesQuantity1);
 
             if (toothbrushQuantity1 != 0)
-                cart.AddItemQuantity(_toothbrush, toothbrushQuantity1);
+                cart = cart.AddItemQuantity(_toothbrush, toothbrushQuantity1);
             
             if (applesQuantity2 != 0)
-                cart.AddItemQuantity(_apples, applesQuantity2);
+                cart = cart.AddItemQuantity(_apples, applesQuantity2);
 
             if (toothbrushQuantity2 != 0)
-                cart.AddItemQuantity(_toothbrush, toothbrushQuantity2);
+                cart = cart.AddItemQuantity(_toothbrush, toothbrushQuantity2);
             
             return cart;
         }
@@ -60,10 +60,10 @@ namespace SupermarketReceipt.Test
         {
             var cart = new ShoppingCart();
             if (applesQuantity != 0)
-                cart.AddItemQuantity(_apples, applesQuantity);
+                cart = cart.AddItemQuantity(_apples, applesQuantity);
 
             if (toothbrushQuantity != 0)
-                cart.AddItemQuantity(_toothbrush, toothbrushQuantity);
+                cart = cart.AddItemQuantity(_toothbrush, toothbrushQuantity);
             
             return cart;
         }
