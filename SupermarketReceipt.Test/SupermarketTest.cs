@@ -4,12 +4,13 @@ using ApprovalTests.Combinations;
 using System.Collections.Generic;
 using Xunit;
 
+[assembly: UseReporter(typeof(DiffReporter))]
+
 namespace SupermarketReceipt.Test
 {
     public class SupermarketTest
     {
         [Fact]
-        [UseReporter(typeof(DiffReporter))]
         public void GoldenMasterTest()
         {
             List<double> dataSet = new List<double> { 2, 0, 1.5, 5 ,0.1, -1 };
@@ -44,7 +45,6 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        [UseReporter(typeof(DiffReporter))]
         public void GoldenMasterThreeForTwoReductionTest()
         {
             List<double> productDataSet = new List<double> { 0,1 ,2 ,3 ,5, 6 ,-3 };
@@ -81,7 +81,6 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        [UseReporter(typeof(DiffReporter))]
         public void GoldenMasterTenPercentDiscountReductionTest()
         {
             List<double> productDataSet = new List<double> { 0,1 ,2 ,3 ,5, 6 ,-3 };
@@ -118,7 +117,6 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        [UseReporter(typeof(DiffReporter))]
         public void GoldenMasterTwoForAmountDiscountReductionTest()
         {
             List<double> productDataSet = new List<double> { 0,1 ,2 ,3 ,5, 6 ,-3 };
@@ -155,7 +153,6 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        [UseReporter(typeof(DiffReporter))]
         public void GoldenMasterFiveForAmountDiscountReductionTest()
         {
             List<double> productDataSet = new List<double> { 0,1 ,2 ,3 ,5,9 ,10 ,-5 };
