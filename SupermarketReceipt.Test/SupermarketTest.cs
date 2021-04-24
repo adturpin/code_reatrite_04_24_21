@@ -27,15 +27,33 @@ namespace SupermarketReceipt.Test
         public void GoldenMasterTest()
         {
             List<double> dataSet = new List<double> { 2, 0, 1.5, 5 ,0.1, -1 };
-            CombinationApprovals.VerifyAllCombinations((double applesQuantity, double toothbrushQuantity) =>
+            CombinationApprovals.VerifyAllCombinations((double applesQuantity1, double applesQuantity2, double toothbrushQuantity1, double toothbrushQuantity2) =>
             {
-                var cart = InitializeCart(applesQuantity, toothbrushQuantity);
+                var cart = InitializeCart(applesQuantity1, applesQuantity2, toothbrushQuantity1, toothbrushQuantity2);
                 var teller = new Teller(_catalog);
                 
                 var receipt = teller.ChecksOutArticlesFrom(cart);
 
                 return new ReceiptPrinter().PrintReceipt(receipt);
-            }, dataSet, dataSet);
+            }, dataSet, dataSet, dataSet, dataSet);
+        }
+
+        private ShoppingCart InitializeCart(double applesQuantity1, double applesQuantity2, double toothbrushQuantity1, double toothbrushQuantity2)
+        {
+            var cart = new ShoppingCart();
+            if (applesQuantity1 != 0)
+                cart.AddItemQuantity(_apples, applesQuantity1);
+
+            if (toothbrushQuantity1 != 0)
+                cart.AddItemQuantity(_toothbrush, toothbrushQuantity1);
+            
+            if (applesQuantity2 != 0)
+                cart.AddItemQuantity(_apples, applesQuantity2);
+
+            if (toothbrushQuantity2 != 0)
+                cart.AddItemQuantity(_toothbrush, toothbrushQuantity2);
+            
+            return cart;
         }
 
         private ShoppingCart InitializeCart(double applesQuantity, double toothbrushQuantity)
