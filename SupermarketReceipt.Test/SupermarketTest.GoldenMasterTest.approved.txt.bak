@@ -1,7 +1,228 @@
+[2,2] => apples                              3.98
+  1.99 * 2.000
+toothbrush                          1.98
+  0.99 * 2
+
+Total:                              5.96
+
+[2,0] => apples                              3.98
+  1.99 * 2.000
+
+Total:                              3.98
+
+[2,1.5] => apples                              3.98
+  1.99 * 2.000
+toothbrush                          1.48
+  0.99 * 1
+
+Total:                              5.46
+
 [2,5] => apples                              3.98
   1.99 * 2.000
 toothbrush                          4.95
   0.99 * 5
 
 Total:                              8.93
+
+[2,0.1] => apples                              3.98
+  1.99 * 2.000
+toothbrush                          0.10
+  0.99 * 0
+
+Total:                              4.08
+
+[2,-1] => apples                              3.98
+  1.99 * 2.000
+toothbrush                         -0.99
+  0.99 * -1
+
+Total:                              2.99
+
+[0,2] => toothbrush                          1.98
+  0.99 * 2
+
+Total:                              1.98
+
+[0,0] => 
+Total:                              0.00
+
+[0,1.5] => toothbrush                          1.48
+  0.99 * 1
+
+Total:                              1.48
+
+[0,5] => toothbrush                          4.95
+  0.99 * 5
+
+Total:                              4.95
+
+[0,0.1] => toothbrush                          0.10
+  0.99 * 0
+
+Total:                              0.10
+
+[0,-1] => toothbrush                         -0.99
+  0.99 * -1
+
+Total:                             -0.99
+
+[1.5,2] => apples                              2.98
+  1.99 * 1.500
+toothbrush                          1.98
+  0.99 * 2
+
+Total:                              4.96
+
+[1.5,0] => apples                              2.98
+  1.99 * 1.500
+
+Total:                              2.98
+
+[1.5,1.5] => apples                              2.98
+  1.99 * 1.500
+toothbrush                          1.48
+  0.99 * 1
+
+Total:                              4.47
+
+[1.5,5] => apples                              2.98
+  1.99 * 1.500
+toothbrush                          4.95
+  0.99 * 5
+
+Total:                              7.94
+
+[1.5,0.1] => apples                              2.98
+  1.99 * 1.500
+toothbrush                          0.10
+  0.99 * 0
+
+Total:                              3.08
+
+[1.5,-1] => apples                              2.98
+  1.99 * 1.500
+toothbrush                         -0.99
+  0.99 * -1
+
+Total:                              1.99
+
+[5,2] => apples                              9.95
+  1.99 * 5.000
+toothbrush                          1.98
+  0.99 * 2
+
+Total:                             11.93
+
+[5,0] => apples                              9.95
+  1.99 * 5.000
+
+Total:                              9.95
+
+[5,1.5] => apples                              9.95
+  1.99 * 5.000
+toothbrush                          1.48
+  0.99 * 1
+
+Total:                             11.43
+
+[5,5] => apples                              9.95
+  1.99 * 5.000
+toothbrush                          4.95
+  0.99 * 5
+
+Total:                             14.90
+
+[5,0.1] => apples                              9.95
+  1.99 * 5.000
+toothbrush                          0.10
+  0.99 * 0
+
+Total:                             10.05
+
+[5,-1] => apples                              9.95
+  1.99 * 5.000
+toothbrush                         -0.99
+  0.99 * -1
+
+Total:                              8.96
+
+[0.1,2] => apples                              0.20
+  1.99 * 0.100
+toothbrush                          1.98
+  0.99 * 2
+
+Total:                              2.18
+
+[0.1,0] => apples                              0.20
+  1.99 * 0.100
+
+Total:                              0.20
+
+[0.1,1.5] => apples                              0.20
+  1.99 * 0.100
+toothbrush                          1.48
+  0.99 * 1
+
+Total:                              1.68
+
+[0.1,5] => apples                              0.20
+  1.99 * 0.100
+toothbrush                          4.95
+  0.99 * 5
+
+Total:                              5.15
+
+[0.1,0.1] => apples                              0.20
+  1.99 * 0.100
+toothbrush                          0.10
+  0.99 * 0
+
+Total:                              0.30
+
+[0.1,-1] => apples                              0.20
+  1.99 * 0.100
+toothbrush                         -0.99
+  0.99 * -1
+
+Total:                             -0.79
+
+[-1,2] => apples                             -1.99
+  1.99 * -1.000
+toothbrush                          1.98
+  0.99 * 2
+
+Total:                             -0.01
+
+[-1,0] => apples                             -1.99
+  1.99 * -1.000
+
+Total:                             -1.99
+
+[-1,1.5] => apples                             -1.99
+  1.99 * -1.000
+toothbrush                          1.48
+  0.99 * 1
+
+Total:                             -0.51
+
+[-1,5] => apples                             -1.99
+  1.99 * -1.000
+toothbrush                          4.95
+  0.99 * 5
+
+Total:                              2.96
+
+[-1,0.1] => apples                             -1.99
+  1.99 * -1.000
+toothbrush                          0.10
+  0.99 * 0
+
+Total:                             -1.89
+
+[-1,-1] => apples                             -1.99
+  1.99 * -1.000
+toothbrush                         -0.99
+  0.99 * -1
+
+Total:                             -2.98
 
