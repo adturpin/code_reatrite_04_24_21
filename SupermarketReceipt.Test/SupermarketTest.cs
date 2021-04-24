@@ -1,3 +1,6 @@
+using ApprovalTests;
+using ApprovalTests.Reporters;
+using ApprovalTests.Combinations;
 using System.Collections.Generic;
 using Xunit;
 
@@ -6,33 +9,186 @@ namespace SupermarketReceipt.Test
     public class SupermarketTest
     {
         [Fact]
-        public void TenPercentDiscount()
+        [UseReporter(typeof(DiffReporter))]
+        public void GoldenMasterTest()
         {
-            // ARRANGE
-            SupermarketCatalog catalog = new FakeCatalog();
-            var toothbrush = new Product("toothbrush", ProductUnit.Each);
-            catalog.AddProduct(toothbrush, 0.99);
-            var apples = new Product("apples", ProductUnit.Kilo);
-            catalog.AddProduct(apples, 1.99);
+            List<double> dataSet = new List<double> { 2, 0, 1.5, 5 ,0.1, -1 };
+            CombinationApprovals.VerifyAllCombinations((double applesQuantity, double toothbrushQuantity) =>
+            {
 
-            var cart = new ShoppingCart();
-            cart.AddItemQuantity(apples, 2.5);
+                // ARRANGE
+                SupermarketCatalog catalog = new FakeCatalog();
+                var toothbrush = new Product("toothbrush", ProductUnit.Each);
+                catalog.AddProduct(toothbrush, 0.99);
+                var apples = new Product("apples", ProductUnit.Kilo);
+                catalog.AddProduct(apples, 1.99);
 
-            var teller = new Teller(catalog);
-            teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, 10.0);
+                var cart = new ShoppingCart();
+                if (applesQuantity != 0)
+                    cart.AddItemQuantity(apples, applesQuantity); 
 
-            // ACT
-            var receipt = teller.ChecksOutArticlesFrom(cart);
+                if (toothbrushQuantity != 0)
+                cart.AddItemQuantity(toothbrush, toothbrushQuantity);
 
-            // ASSERT
-            Assert.Equal(4.975, receipt.GetTotalPrice());
-            Assert.Equal(new List<Discount>(), receipt.GetDiscounts());
-            Assert.Single(receipt.GetItems());
-            var receiptItem = receipt.GetItems()[0];
-            Assert.Equal(apples, receiptItem.Product);
-            Assert.Equal(1.99, receiptItem.Price);
-            Assert.Equal(2.5 * 1.99, receiptItem.TotalPrice);
-            Assert.Equal(2.5, receiptItem.Quantity);
+                var teller = new Teller(catalog);
+                //teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, 10.0);
+
+                // ACT
+                var receipt = teller.ChecksOutArticlesFrom(cart);
+
+                // ASSERT
+                string result = new ReceiptPrinter().PrintReceipt(receipt);
+                //Approvals.Verify(result);
+                return result;
+            }, dataSet, dataSet);
+        }
+
+        [Fact]
+        [UseReporter(typeof(DiffReporter))]
+        public void GoldenMasterThreeForTwoReductionTest()
+        {
+            List<double> productDataSet = new List<double> { 0,1 ,2 ,3 ,5, 6 ,-3 };
+            List<double> argumentDataSet = new List<double> { 2, 0, 1.5, 5 ,0.1, -1 };
+            CombinationApprovals.VerifyAllCombinations((double applesQuantity, double toothbrushQuantity, double argument) =>
+            {
+
+                // ARRANGE
+                SupermarketCatalog catalog = new FakeCatalog();
+                var toothbrush = new Product("toothbrush", ProductUnit.Each);
+                catalog.AddProduct(toothbrush, 0.99);
+                var apples = new Product("apples", ProductUnit.Kilo);
+                catalog.AddProduct(apples, 1.99);
+
+                var cart = new ShoppingCart();
+                if (applesQuantity != 0)
+                    cart.AddItemQuantity(apples, applesQuantity); 
+
+                if (toothbrushQuantity != 0)
+                cart.AddItemQuantity(toothbrush, toothbrushQuantity);
+
+                var teller = new Teller(catalog);
+                teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, apples, argument);
+                teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, toothbrush, argument);
+
+                // ACT
+                var receipt = teller.ChecksOutArticlesFrom(cart);
+
+                // ASSERT
+                string result = new ReceiptPrinter().PrintReceipt(receipt);
+                //Approvals.Verify(result);
+                return result;
+            }, productDataSet, productDataSet,argumentDataSet);
+        }
+
+        [Fact]
+        [UseReporter(typeof(DiffReporter))]
+        public void GoldenMasterTenPercentDiscountReductionTest()
+        {
+            List<double> productDataSet = new List<double> { 0,1 ,2 ,3 ,5, 6 ,-3 };
+            List<double> argumentDataSet = new List<double> { 2, 0, 1.5, 5 ,0.1, -1 };
+            CombinationApprovals.VerifyAllCombinations((double applesQuantity, double toothbrushQuantity, double argument) =>
+            {
+
+                // ARRANGE
+                SupermarketCatalog catalog = new FakeCatalog();
+                var toothbrush = new Product("toothbrush", ProductUnit.Each);
+                catalog.AddProduct(toothbrush, 0.99);
+                var apples = new Product("apples", ProductUnit.Kilo);
+                catalog.AddProduct(apples, 1.99);
+
+                var cart = new ShoppingCart();
+                if (applesQuantity != 0)
+                    cart.AddItemQuantity(apples, applesQuantity); 
+
+                if (toothbrushQuantity != 0)
+                cart.AddItemQuantity(toothbrush, toothbrushQuantity);
+
+                var teller = new Teller(catalog);
+                teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, apples, argument);
+                teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, argument);
+
+                // ACT
+                var receipt = teller.ChecksOutArticlesFrom(cart);
+
+                // ASSERT
+                string result = new ReceiptPrinter().PrintReceipt(receipt);
+                //Approvals.Verify(result);
+                return result;
+            }, productDataSet, productDataSet,argumentDataSet);
+        }
+
+        [Fact]
+        [UseReporter(typeof(DiffReporter))]
+        public void GoldenMasterTwoForAmountDiscountReductionTest()
+        {
+            List<double> productDataSet = new List<double> { 0,1 ,2 ,3 ,5, 6 ,-3 };
+            List<double> argumentDataSet = new List<double> { 2, 0, 1.5, 5 ,0.1, -1 };
+            CombinationApprovals.VerifyAllCombinations((double applesQuantity, double toothbrushQuantity, double argument) =>
+            {
+
+                // ARRANGE
+                SupermarketCatalog catalog = new FakeCatalog();
+                var toothbrush = new Product("toothbrush", ProductUnit.Each);
+                catalog.AddProduct(toothbrush, 0.99);
+                var apples = new Product("apples", ProductUnit.Kilo);
+                catalog.AddProduct(apples, 1.99);
+
+                var cart = new ShoppingCart();
+                if (applesQuantity != 0)
+                    cart.AddItemQuantity(apples, applesQuantity); 
+
+                if (toothbrushQuantity != 0)
+                cart.AddItemQuantity(toothbrush, toothbrushQuantity);
+
+                var teller = new Teller(catalog);
+                teller.AddSpecialOffer(SpecialOfferType.TwoForAmount, apples, argument);
+                teller.AddSpecialOffer(SpecialOfferType.TwoForAmount, toothbrush, argument);
+
+                // ACT
+                var receipt = teller.ChecksOutArticlesFrom(cart);
+
+                // ASSERT
+                string result = new ReceiptPrinter().PrintReceipt(receipt);
+                //Approvals.Verify(result);
+                return result;
+            }, productDataSet, productDataSet,argumentDataSet);
+        }
+
+        [Fact]
+        [UseReporter(typeof(DiffReporter))]
+        public void GoldenMasterFiveForAmountDiscountReductionTest()
+        {
+            List<double> productDataSet = new List<double> { 0,1 ,2 ,3 ,5,9 ,10 ,-5 };
+            List<double> argumentDataSet = new List<double> { 2, 0, 1.5, 5 ,0.1, -1 };
+            CombinationApprovals.VerifyAllCombinations((double applesQuantity, double toothbrushQuantity, double argument) =>
+            {
+
+                // ARRANGE
+                SupermarketCatalog catalog = new FakeCatalog();
+                var toothbrush = new Product("toothbrush", ProductUnit.Each);
+                catalog.AddProduct(toothbrush, 0.99);
+                var apples = new Product("apples", ProductUnit.Kilo);
+                catalog.AddProduct(apples, 1.99);
+
+                var cart = new ShoppingCart();
+                if (applesQuantity != 0)
+                    cart.AddItemQuantity(apples, applesQuantity); 
+
+                if (toothbrushQuantity != 0)
+                cart.AddItemQuantity(toothbrush, toothbrushQuantity);
+
+                var teller = new Teller(catalog);
+                teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, apples, argument);
+                teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, toothbrush, argument);
+
+                // ACT
+                var receipt = teller.ChecksOutArticlesFrom(cart);
+
+                // ASSERT
+                string result = new ReceiptPrinter().PrintReceipt(receipt);
+                //Approvals.Verify(result);
+                return result;
+            }, productDataSet, productDataSet,argumentDataSet);
         }
     }
 }
