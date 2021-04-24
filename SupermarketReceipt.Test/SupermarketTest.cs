@@ -79,7 +79,7 @@ namespace SupermarketReceipt.Test
                 var teller = new Teller(_catalog);
                 teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _apples, argument);
                 teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _toothbrush, argument);
-                
+                  
                 var receipt = teller.ChecksOutArticlesFrom(cart);
 
                 return new ReceiptPrinter().PrintReceipt(receipt);
@@ -97,7 +97,7 @@ namespace SupermarketReceipt.Test
                 var teller = new Teller(_catalog);
                 teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, _apples, argument);
                 teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, _toothbrush, argument);
-                
+                  
                 var receipt = teller.ChecksOutArticlesFrom(cart);
 
                 return new ReceiptPrinter().PrintReceipt(receipt);
@@ -110,7 +110,7 @@ namespace SupermarketReceipt.Test
             List<double> productDataSet = new List<double> { 0,1 ,2 ,3 ,5, 6 ,-3 };
             List<double> argumentDataSet = new List<double> { 2, 0, 1.5, 5 ,0.1, -1 };
             CombinationApprovals.VerifyAllCombinations((double applesQuantity1, double applesQuantity2, double toothbrushQuantity1, double toothbrushQuantity2, double argument) =>
-            {
+            { 
                 var cart = InitializeCart(applesQuantity1, applesQuantity2, toothbrushQuantity1, toothbrushQuantity2);
                 var teller = new Teller(_catalog);
                 teller.AddSpecialOffer(SpecialOfferType.TwoForAmount, _apples, argument);
