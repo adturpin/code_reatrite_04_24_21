@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace SupermarketReceipt
@@ -10,28 +11,25 @@ namespace SupermarketReceipt
         private readonly int _columns;
 
 
-        public ReceiptPrinter(int columns)
+        private ReceiptPrinter(int columns) 
         {
             _columns = columns;
         }
 
-        public ReceiptPrinter() : this(40)
+        public ReceiptPrinter() : this(40) 
         {
         }
 
         public string PrintReceipt(Receipt receipt)
         {
             var result = new StringBuilder();
-            foreach (var item in receipt.GetItems())
+            foreach (var receiptItem in receipt.GetItems().Select(PrintReceiptItem))
             {
-                string receiptItem = PrintReceiptItem(item);
                 result.Append(receiptItem);
-                
             }
 
-            foreach (var discount in receipt.GetDiscounts())
+            foreach (var discountPresentation in receipt.GetDiscounts().Select(PrintDiscount))
             {
-                string discountPresentation = PrintDiscount(discount);
                 result.Append(discountPresentation);
             }
 
@@ -44,14 +42,14 @@ namespace SupermarketReceipt
 
         private string PrintTotal(Receipt receipt)
         {
-            string name = "Total: ";
-            string value = PrintPrice(receipt.GetTotalPrice());
+            const string name = "Total: ";
+            var value = PrintPrice(receipt.GetTotalPrice());
             return FormatLineWithWhitespace(name, value);
         }
 
         private string PrintDiscount(Discount discount)
         {
-            string name = discount.Description + "(" + discount.Product.Name + ")";
+            var name = discount.Description + "(" + discount.Product.Name + ")";
             string value = PrintPrice(discount.DiscountAmount);
 
             return FormatLineWithWhitespace(name, value);

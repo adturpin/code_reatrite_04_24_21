@@ -78,11 +78,10 @@ namespace SupermarketReceipt
 
         private Dictionary<Product,double > ProductQuantities()
         {
-            return  _items
+            return _items
                 .GetAll()
                 .GroupBy(l => l.Product)
-                .Select(cl => new KeyValuePair<Product, double>(cl.Key, cl.Sum(x => x.Quantity)))
-                .ToDictionary(x => x.Key, x => x.Value);
+                .ToDictionary(x => x.Key, x => x.Sum(y => y.Quantity));
         }
     }
 }
